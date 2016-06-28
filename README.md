@@ -15,7 +15,7 @@ source ~/.bash_profile
 ## Project setup ##
 * Clone this repo in a folder (e.g. project)
 ```bash
-cd project
+cd tilext
 mkvirtualenv tilext -r requirements.txt
 ```
 
@@ -24,6 +24,6 @@ mkvirtualenv tilext -r requirements.txt
 
 ## Test ##
 ```bash
-cd project
+cd tilext
 py.test
 ```
