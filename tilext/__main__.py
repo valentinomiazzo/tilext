@@ -1,9 +1,16 @@
+# Let's make the sources folder importable ...
+import sys, os
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/../')
+
 if __name__ == '__main__':
 
+    import png
+    import tilext
     import argparse
 
     parser = argparse.ArgumentParser(description='Find the tile grid offset in a image.')
-    parser.add_argument('-i', '--input', type=argparse.FileType('r'), required=True,
+    parser.add_argument('-i', '--input', type=str, required=True,
                         help='the input image')
     parser.add_argument('-o', '--output', type=str, required=True,
                         help='the prefix for the generated files')
@@ -15,16 +22,21 @@ if __name__ == '__main__':
                         help='the (max) number of colors in a single tile')
 
     args = parser.parse_args()
-    print(args.accumulate(args.integers))
+    #print args
 
-    quit()
-    reader = png.Reader(filename='tests/truxton.png')
+    reader = png.Reader(filename=args.input)
     w,h,pixels,metadata = reader.read()
-    print metadata
     rows = list(pixels)
-    tileSizePx=16
-    itemsPerPx=3
+    print metadata
+    if metadata['bitdepth'] != 8:
+        sys.stderr.write('ERROR: PNG with bitdepth != 8\n')
+        sys.stderr.write(str(metadata))
+        sys.exit(1)
 
-    offsetFinder = tilext.OffsetFinder(itemsPerPx,tileSizePx,tileSizePx,rows)
+    itemsPerPx=metadata['planes']
+
+    offsetFinder = tilext.OffsetFinder(itemsPerPx, args.tilewidth, args.tileheight, rows)
     xOffset = offsetFinder.findBestHorizontalOffset()
+    print xOffset
     yOffset = offsetFinder.findBestVerticalOffset(xOffset)
+    print yOffset
