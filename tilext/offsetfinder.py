@@ -68,8 +68,6 @@ class OffsetFinder:
                 break
         return isMatching
 
-    #-------------------------------------------------------------------------------
-
     def findBestVerticalOffset(self, xOffsetPx):
         counters = {}
         columnSliceIdx = xOffsetPx * self.ITEMS_PER_PX

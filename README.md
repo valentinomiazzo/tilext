@@ -15,6 +15,7 @@ source ~/.bash_profile
 ## Project setup ##
 * Clone this repo in a folder (e.g. project)
 ```bash
+git clone https://github.com/valentinomiazzo/tilext.git
 cd tilext
 mkvirtualenv tilext -r requirements.txt
 ```
