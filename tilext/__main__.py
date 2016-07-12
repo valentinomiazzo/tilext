@@ -20,14 +20,17 @@ if __name__ == '__main__':
                         help='the height of the tiles in pixels')
     parser.add_argument('-tc', '--tilecolors', type=int, default=16,
                         help='the (max) number of colors in a single tile')
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='prints additional information')
 
     args = parser.parse_args()
     #print args
 
     reader = png.Reader(filename=args.input)
     w,h,pixels,metadata = reader.read()
+    if args.verbose:
+        sys.stdout.write("PNG metadata: " + str(metadata) + "\n")
     rows = list(pixels)
-    print metadata
     if metadata['bitdepth'] != 8:
         sys.stderr.write('ERROR: PNG with bitdepth != 8\n')
         sys.stderr.write(str(metadata))
@@ -37,6 +40,6 @@ if __name__ == '__main__':
 
     offsetFinder = tilext.OffsetFinder(itemsPerPx, args.tilewidth, args.tileheight, rows)
     xOffset = offsetFinder.findBestHorizontalOffset()
-    print xOffset
+    sys.stdout.write(str(xOffset)+"\n")
     yOffset = offsetFinder.findBestVerticalOffset(xOffset)
-    print yOffset
+    sys.stdout.write(str(yOffset)+"\n")

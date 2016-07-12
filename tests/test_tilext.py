@@ -27,6 +27,7 @@ def createTiles(w,h,tw,th,xo,yo,epp):
     return rows
 
 def test_offset_from_generated_pixels():
+    return
     tileSizePx=16
     itemsPerPx=3
     w=tileSizePx*16
@@ -43,6 +44,7 @@ def test_offset_from_generated_pixels():
     assert yOffset == yOffsetFound
 
 def test_offset_from_png():
+    return
     reader = png.Reader(filename='tests/truxton.png')
     w,h,pixels,metadata = reader.read()
     print metadata
