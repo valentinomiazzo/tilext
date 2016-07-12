@@ -4,13 +4,13 @@ Install Git.
 For example use http://brew.sh/
 ```bash
 sudo -H pip install autoenv
-echo 'source /usr/local/opt/autoenv/activate.sh' >> ~/.bash_profile
+echo 'source $(which activate.sh)' >> ~/.bash_profile
 source ~/.bash_profile
 
 sudo -H pip install virtualenv
 sudo -H pip install virtualenvwrapper
 echo 'export WORKON_HOME=~/Envs' >> ~/.bash_profile
-echo 'source /usr/local/bin/virtualenvwrapper.sh' >> ~/.bash_profile
+echo 'source $(which virtualenvwrapper.sh)' >> ~/.bash_profile
 source ~/.bash_profile
 ```
 ## Python setup for Windows ##
