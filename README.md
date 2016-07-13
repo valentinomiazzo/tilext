@@ -44,5 +44,6 @@ python tilext -i tests/truxton.png -o truxton_test
 ## Test ##
 ```bash
 cd tilext
-py.test
+coverage run -m  py.test
+coverage html
 ```

@@ -18,23 +18,34 @@ class OffsetFinder2:
     def _mac(self, start, offset, delta, length):
         xa = start[0]
         ya = start[1]
-        xb = xa + offset[0]
-        yb = ya + offset[1]
+        xb = xa - offset[0]
+        yb = ya - offset[1]
         ix = 0
         iy = 0
         dx = delta[0]
         dy = delta[1]
         mac = 0
         for i in range(0, length):
-            a = self.rows[ya + iy][xa + ix] - 128
-            print a
-            b = self.rows[yb + iy][xb + ix] - 128
-            print b
+            #print i
+            a = self._lookup(xa + ix, ya + iy)
+            #print a
+            b = self._lookup(xb + ix, yb + iy)
+            #print b
             mac += a*b
-            print mac
+            #print "mac=%s" % mac
             ix += dx
             iy += dy
         return mac
+
+    def _lookup(self, x, y):
+        #print "x:%s y:%s" % (x, y)
+        v = -128
+        if (x>=0 and y>=0):
+            try:
+                v += self.rows[y][x]
+            except IndexError:
+                pass
+        return v
 
     def _arePixelsEqual(self, a, b):
         result = True
